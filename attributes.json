@@ -1,5 +1,5 @@
 {
         "run_list": [ 
-                "recipe[hello::default]"
+                "recipe[example::default]"
         ]
 }

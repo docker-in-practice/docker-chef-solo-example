@@ -8,9 +8,8 @@ RUN rm chef.deb
 
 RUN mkdir -p /app/src /app/src_runtime /meta /var/log/chef /chef
 
-# From: http://www.dmuth.org/node/1397/chef-101-introduction-chef
-RUN mkdir -p /chef/cookbooks/hello/recipes
-RUN touch /chef/cookbooks/hello/recipes/default.rb
+RUN mkdir -p /chef/cookbooks/example/recipes
+RUN touch /chef/cookbooks/example/recipes/default.rb
 
 COPY /config.rb /chef/
 COPY /attributes.json /chef/
