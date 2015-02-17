@@ -1,5 +1,6 @@
 {
         "run_list": [ 
-                "recipe[example::default]"
+                "recipe[example::default]",
+                "recipe[apache2::default]"
         ]
 }

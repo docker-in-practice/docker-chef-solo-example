@@ -6,10 +6,18 @@ RUN	curl -L https://opscode-omnibus-packages.s3.amazonaws.com/ubuntu/12.04/x86_6
 RUN dpkg -i chef.deb
 RUN rm chef.deb
 
-RUN mkdir -p /app/src /app/src_runtime /meta /var/log/chef /chef
+RUN mkdir -p /chef/cookbooks/example/recipes cookbooks/example/templates/default /var/log/chef
+COPY /cookbooks/example/recipes/default.rb /chef/cookbooks/example/recipes/default.rb
+COPY /cookbooks/example/templates/default/config.json.erb /chef/cookbooks/example/templates/default/config.json.erb
 
-RUN mkdir -p /chef/cookbooks/example/recipes
-RUN touch /chef/cookbooks/example/recipes/default.rb
+# Download apache2 cookbook and dependencies
+WORKDIR /chef/cookbooks
+RUN knife cookbook site download apache2 
+RUN knife cookbook site download iptables
+RUN knife cookbook site download logrotate
+# Untar and remove tarballs.
+RUN /bin/bash -c 'for f in $(ls *gz); do tar -zxf $f; done'
+RUN /bin/bash -c 'rm *gz'
 
 COPY /config.rb /chef/
 COPY /attributes.json /chef/
