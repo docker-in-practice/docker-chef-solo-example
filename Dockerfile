@@ -10,12 +10,11 @@ RUN mkdir -p /chef/cookbooks/example/recipes cookbooks/example/templates/default
 COPY /cookbooks/example/recipes/default.rb /chef/cookbooks/example/recipes/default.rb
 COPY /cookbooks/example/templates/default/config.json.erb /chef/cookbooks/example/templates/default/config.json.erb
 
-# Download apache2 cookbook and dependencies
 WORKDIR /chef/cookbooks
 RUN knife cookbook site download apache2 
 RUN knife cookbook site download iptables
 RUN knife cookbook site download logrotate
-# Untar and remove tarballs.
+
 RUN /bin/bash -c 'for f in $(ls *gz); do tar -zxf $f; done'
 RUN /bin/bash -c 'rm *gz'
 

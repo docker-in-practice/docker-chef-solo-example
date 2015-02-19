@@ -14,9 +14,7 @@ execute "a sample command" do
     creates "/home/example/sample.txt"
 end
  
-#
 # Create a directory with specified ownership and permissions.
-#
 directory "/home/example/example-app" do
     owner "example"
     group "example"
@@ -29,9 +27,9 @@ end
 # This will only run if the date of the template file is newer than the date 
 # of the deployed file. 
 template "/home/example/example-app/config.json" do
-    source "config.json.erb"
+    source "message.erb"
     variables(
-        :home_dir => "/home/example/example-app"
+        :message => "Hello World!"
     )
     user "example"
     group "example"
