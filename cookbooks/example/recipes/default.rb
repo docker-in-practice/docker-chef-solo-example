@@ -1,23 +1,15 @@
 # Create a user.
-user "example" do
-    comment "Example User"
-    home "/home/example"
+user "my_site" do
+    comment "my_site user"
+    home "/home/my_site"
     shell "/bin/bash"
     supports  :manage_home => true
 end
  
-# When executing a script, it should create a file specified by 
-# "creates" upon completion. This ensures that the command will 
-# only run once throughout the life of the system.
-execute "a sample command" do
-    command "touch /home/example/sample.txt"
-    creates "/home/example/sample.txt"
-end
- 
 # Create a directory with specified ownership and permissions.
-directory "/home/example/example-app" do
-    owner "example"
-    group "example"
+directory "/usr/share/html" do
+    owner "my_site"
+    group "my_site"
     mode 0755
     action :create
 end
@@ -26,14 +18,19 @@ end
 # Create a configuration file based on a template.
 # This will only run if the date of the template file is newer than the date 
 # of the deployed file. 
-template "/home/example/example-app/config.json" do
+template "/usr/share/html/index.html" do
     source "message.erb"
     variables(
         :message => "Hello World!"
     )
-    user "example"
-    group "example"
-    mode 0600
+    user "my_site"
+    group "my_site"
+    mode 0755
 end
  
- 
+web_app "my_site" do
+    server_name node['hostname']
+    server_aliases [node['fqdn'], "my-site.example.com"]
+    docroot "/usr/share/html"
+    cookbook 'apache2'
+end 
