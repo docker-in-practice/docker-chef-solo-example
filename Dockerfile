@@ -6,10 +6,10 @@ RUN curl -L https://opscode-omnibus-packages.s3.amazonaws.com/ubuntu/12.04/x86_6
 RUN dpkg -i chef.deb
 RUN rm chef.deb
 
-RUN mkdir -p /chef/cookbooks/example/recipes cookbooks/example/templates/default /var/log/chef
+RUN mkdir -p /chef/cookbooks/my_site/recipes /chef/cookbooks/my_site/templates/default /var/log/chef
 
-COPY /cookbooks/example/recipes/default.rb /chef/cookbooks/example/recipes/default.rb
-COPY /cookbooks/example/templates/default/message.erb /chef/cookbooks/example/templates/default/message.erb
+COPY /cookbooks/my_site/recipes/default.rb /chef/cookbooks/my_site/recipes/default.rb
+COPY /cookbooks/my_site/templates/default/message.erb /chef/cookbooks/my_site/templates/default/message.erb
 
 WORKDIR /chef/cookbooks
 RUN knife cookbook site download apache2 
@@ -23,8 +23,5 @@ COPY /config.rb /chef/
 COPY /attributes.json /chef/
 
 RUN chef-solo -c /chef/config.rb -j /chef/attributes.json
-
-#USER example
-WORKDIR /home/example
 
 CMD ["/bin/bash"]
