@@ -23,8 +23,8 @@ template "/var/www/html/mysite/index.html" do
 end
  
 web_app "mysite" do
-    server_name "mysite.com"
-    server_aliases ["www.mysite.com","mysite.com"]
+    server_name "example.com"
+    server_aliases ["www.example.com","example.com"]
     docroot "/var/www/html/mysite"
     cookbook 'apache2'
 end 
