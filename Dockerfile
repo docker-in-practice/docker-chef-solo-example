@@ -1,8 +1,8 @@
-FROM ubuntu:14.04
+FROM ubuntu:16.04
 
 RUN apt-get update && apt-get install -y git curl
 
-RUN curl -L https://opscode-omnibus-packages.s3.amazonaws.com/ubuntu/12.04/x86_64/chefdk_0.3.5-1_amd64.deb -o chef.deb
+RUN curl -L https://packages.chef.io/files/current/chefdk/2.1.17/ubuntu/16.04/chefdk_2.1.17-1_amd64.deb -o chef.deb
 RUN dpkg -i chef.deb && rm chef.deb
 
 COPY . /chef

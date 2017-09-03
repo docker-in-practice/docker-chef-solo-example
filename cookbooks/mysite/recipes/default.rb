@@ -2,7 +2,6 @@ user "mysiteuser" do
     comment "mysite user"
     home "/home/mysiteuser"
     shell "/bin/bash"
-    supports  :manage_home => true
 end
  
 directory "/var/www/html/mysite" do
